@@ -1,0 +1,20 @@
+<div class="container h-100">
+  <h3>Previwe</h3>
+  <div class="image" [ngStyle]="installBackground()">
+    <div class="row h-100">
+      <div class="col-2 d-flex m-auto" *ngFor="let tip of data.tooltips">
+        <button class="image__tooltip"
+              matTooltip="{{tip.description}}"
+              matTooltipPosition="right"
+        >{{tip.name}}</button>
+      </div>
+    </div>
+  </div>
+  <div class="button-wrapper">
+    <button color="primary" mat-raised-button (click)="closeDialog()">
+      Ok
+    </button>
+  </div>
+</div>
+
+

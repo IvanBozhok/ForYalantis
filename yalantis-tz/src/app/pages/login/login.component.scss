@@ -1,0 +1,64 @@
+@import '../../styles/variables';
+
+.row {
+  min-height: 100vh;
+  position: relative;
+}
+
+.auth {
+  padding: 80px 80px 60px;
+  margin: 70px 0 70px;
+
+
+  &__label {
+    color: $color-font;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 17px;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+  form {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  &__button {
+    margin-top: 30px;
+    text-align: center;
+  }
+}
+
+.copyright {
+  position: absolute;
+  bottom: 40px;
+  width: 100%;
+  text-align: center;
+  color: $color-font;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 17px;
+}
+
+@include respond-to(md) {
+  .auth {
+    padding: 60px 40px;
+  }
+}
+
+@include respond-to(sm) {
+  .auth {
+    padding: 30px 20px;
+    margin: 15px 0 40px;
+    &__label {
+      margin-bottom: 30px;
+    }
+  }
+  mat-form-field {
+    line-height: 20px;
+  }
+  .copyright {
+    bottom: 15px;
+  }
+}
