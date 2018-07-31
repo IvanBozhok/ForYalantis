@@ -26,10 +26,22 @@ export class RepositoryService {
   getImgInfo(id: string) {
     return this.http.get(this.url + id);
   }
-  addNewImage(newImg, file) {
-    return this.http.post(this.url, newImg);
+  addNewImage(newImg) {
+    console.log(newImg);
+    const body = {
+      'name': newImg.name,
+      'url': newImg.url,
+      'tooltips': newImg.tooltips,
+    };
+    return this.http.post(this.url, body);
   }
   updateImgInfo(img) {
-    return this.http.put(this.url + img._id, img);
+    console.log(img);
+    return this.http.put(this.url + img._id, {
+      '_id': img._id,
+      'name': img.name,
+      'url': img.url,
+      'tooltips': img.tooltips
+    });
   }
 }

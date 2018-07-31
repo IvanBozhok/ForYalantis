@@ -5,6 +5,15 @@
       <div class="page-title">
         Tooltips for image
       </div>
+      <div class="margin-top-20">
+        <mat-form-field>
+          <input matInput
+                 #newName
+                 value="{{image.name}}"
+                 (change)="isNewName(newName)"
+                 placeholder="Image name"/>
+        </mat-form-field>
+      </div>
       <div class="image" [ngStyle]="installBackground()">
         <app-file-uploader [activeColor]="'orangered'" [baseColor]="'lightgray'"
                            (changed)="onChangedImage($event)" (newImg)="isNewImg($event)" ></app-file-uploader>

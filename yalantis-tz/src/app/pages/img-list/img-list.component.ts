@@ -19,6 +19,7 @@ export class ImgListComponent implements OnInit {
 
   ngOnInit() {
     this.repository.getImages().subscribe(response => {
+      console.log(response);
       this.images.next(response);
     });
   }
