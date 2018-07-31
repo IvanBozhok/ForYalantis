@@ -79,6 +79,7 @@ router.put('/images/:id', function(req, res) {
   console.log('upImage =>>>>>' + upImage);
 
   upImage.update()
+    .where('_id').equals(req.params.id)
     .then(result => {
       console.log(result);
       if (result.ok && result.n > 0) {
