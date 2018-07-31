@@ -21,7 +21,7 @@ export class AddImgComponent implements OnInit {
   newImg = '';
   constructor(private repository: RepositoryService,
               public dialog: MatDialog,
-              private router: Router,) { }
+              private router: Router) { }
   ngOnInit() {}
   addTooltip(name, description): void {
     const newTooltip = {
@@ -33,6 +33,9 @@ export class AddImgComponent implements OnInit {
   }
   deleteTooltip(id: number): void {
     this.tooltips.splice(this.tooltips.indexOf(id), 1);
+  }
+  isNewName(newName): void {
+    this.image.name = newName.value;
   }
   installBackground(): any {
     return { 'background-image': this.image.url ? 'url("' + this.image.url + '")'
@@ -54,7 +57,14 @@ export class AddImgComponent implements OnInit {
     });
   }
   addNewImage(): void {
-    this.repository.addNewImage(this.image, this.imageFileForUpload)
+    this.tooltips.map(tooltip => {
+      const tip = {
+        name: tooltip.name,
+        description: tooltip.description
+      };
+      this.image.tooltips.push(tip);
+    });
+    this.repository.addNewImage(this.image)
       .subscribe(res => {
         if (res) {
           this.router.navigateByUrl(RouteUrls.ImagesList);

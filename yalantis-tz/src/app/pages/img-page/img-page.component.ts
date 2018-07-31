@@ -3,6 +3,8 @@ import { RepositoryService } from '../../services/repository.service';
 import { ImgModel } from './img-model';
 import { MatDialog } from '@angular/material';
 import { PreviewDialogComponent } from '../preview-dialog/preview-dialog.component';
+import {RouteUrls} from '../../common/route-urls';
+import {Router} from '@angular/router';
 interface ImageInfo {
   _id?: string;
   name?: string;
@@ -23,10 +25,12 @@ export class ImgPageComponent implements OnInit {
   dialogRef: any;
   newImg = '';
   constructor(private repository: RepositoryService,
-              public dialog: MatDialog) { }
+              public dialog: MatDialog,
+              private router: Router) { }
   ngOnInit() {
     this.repository.getImgInfo(JSON.parse(localStorage.getItem('imageId')))
       .subscribe((response: ImageInfo) => {
+        console.log(response);
         this.image.tooltips = response.tooltips;
         this.image._id = response._id;
         this.image.name = response.name;
@@ -52,6 +56,9 @@ export class ImgPageComponent implements OnInit {
   deleteTooltip(id: number): void {
     this.tooltips.splice(this.tooltips.indexOf(id), 1);
   }
+  isNewName(newName): void {
+    this.image.name = newName.value;
+  }
   installBackground(): any {
     return { 'background-image': this.image.url ? 'url("' + this.image.url + '")'
         : 'url("")'};
@@ -74,9 +81,11 @@ export class ImgPageComponent implements OnInit {
       };
       updateIngInfo.tooltips.push(tip);
     });
-    console.log(updateIngInfo);
     this.repository.updateImgInfo(updateIngInfo)
-      .subscribe(resp => {
+      .subscribe((resp: {success: boolean}) => {
+        if (resp.success) {
+          this.router.navigateByUrl(RouteUrls.ImagesList);
+        }
         console.log(resp);
       });
   }
